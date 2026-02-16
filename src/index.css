@@ -63,45 +63,48 @@
   }
 }
 
-/* ── Fire & Smoke Animation ── */
-@keyframes flicker {
-  0%, 100% {
-    text-shadow:
-      0 -5px 4px #FFD700,
-      2px -10px 6px #FF8C00,
-      -2px -15px 10px #FF4500,
-      0 -25px 20px #8B0000;
-  }
-  50% {
-    text-shadow:
-      0 -7px 6px #FFD700,
-      -2px -12px 8px #FF8C00,
-      2px -18px 12px #FF4500,
-      0 -30px 25px #8B0000;
-  }
+/* ── Partial Fire & Smoke Animation ── */
+
+/* Flame glow that only lights the top edge of the letters */
+@keyframes tip-flicker {
+  0%   { text-shadow: 0 -2px 4px #FFD700, 0 -6px 8px #FF8C00,  0 -10px 12px #FF4500; opacity: 1; }
+  40%  { text-shadow: 0 -3px 6px #FFD700, 0 -8px 10px #FF8C00, 0 -14px 16px #FF4500; opacity: 1; }
+  70%  { text-shadow: 0 -2px 3px #FF8C00, 0 -5px 6px #FF4500,  0 -8px 10px #8B0000;  opacity: 0.7; }
+  100% { text-shadow: none; opacity: 0; }
 }
 
+/* Smoke that rises once and stops */
 @keyframes smoke-rise {
-  0%   { transform: translateY(0) scale(1);    opacity: 0;   filter: blur(2px); }
-  50%  { opacity: 0.8; }
-  100% { transform: translateY(-40px) scale(1.5); opacity: 0; filter: blur(10px); }
+  0%   { transform: translateY(0)    scale(1);   opacity: 0;   filter: blur(2px);  }
+  30%  { opacity: 0.7; }
+  100% { transform: translateY(-50px) scale(2);  opacity: 0;   filter: blur(8px);  }
 }
 
-.burning-text {
-  color: transparent;
-  background: linear-gradient(to top, #ffff00 0%, #ff0000 60%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: flicker 1.5s infinite alternate;
+/* The flame overlay — sits on top half of the NO, not the whole letter */
+.burning-tip {
+  position: absolute;
+  /* Cover only the top 45% of the letters */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  pointer-events: none;
+  /* The actual glow is on this element, not the text */
+  animation: tip-flicker 3.5s ease-out forwards;
+  /* Use box-shadow trick: a soft upward glow bleeding out of the top */
+  box-shadow: 0 -6px 12px 2px #FF8C00, 0 -12px 20px 4px #FF4500;
+  border-radius: 4px 4px 0 0;
+  opacity: 0;
 }
 
 .smoke-particle {
   position: absolute;
-  top: -10px;
-  width: 10px;
-  height: 10px;
-  background: rgba(100, 100, 100, 0.6);
+  top: -6px;
+  width: 8px;
+  height: 8px;
+  background: rgba(120, 120, 120, 0.55);
   border-radius: 50%;
-  animation: smoke-rise 2s infinite ease-out;
+  /* forwards — stays gone after finishing, doesn't loop */
+  animation: smoke-rise 2s ease-out forwards;
   pointer-events: none;
 }

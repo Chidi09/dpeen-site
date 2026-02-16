@@ -144,6 +144,12 @@ const HeroSection = ({ setIsModalOpen }) => {
   const part1 = 'SAY ';
   const part3 = ' TO DRUGS';
 
+  // Ignite on typewriter complete, extinguish after 3.5s
+  const handleTypingDone = () => {
+    setIsBurning(true);
+    setTimeout(() => setIsBurning(false), 3500);
+  };
+
   return (
     <section className="relative overflow-hidden py-24 lg:py-32">
       <div className="container px-4 md:px-6 relative z-10">
@@ -165,7 +171,7 @@ const HeroSection = ({ setIsModalOpen }) => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            onAnimationComplete={() => setIsBurning(true)}
+            onAnimationComplete={handleTypingDone}
           >
             {/* SAY  */}
             {part1.split('').map((char, i) => (
@@ -174,16 +180,17 @@ const HeroSection = ({ setIsModalOpen }) => {
               </motion.span>
             ))}
 
-            {/* NO — ignites when typing finishes */}
+            {/* NO — top-edge flame overlay, text stays red throughout */}
             <span className="relative inline-block">
-              <span className={`transition-all duration-700 ${isBurning ? 'burning-text' : 'text-dpeen-red'}`}>
-                NO
-              </span>
+              <span className="text-dpeen-red">NO</span>
+
+              {/* Partial flame: only covers the top ~45% of the letters */}
               {isBurning && (
                 <>
+                  <span key={Date.now()} className="burning-tip" />
                   <span className="smoke-particle" style={{ animationDelay: '0s',   left: '15%' }} />
-                  <span className="smoke-particle" style={{ animationDelay: '0.6s', left: '50%' }} />
-                  <span className="smoke-particle" style={{ animationDelay: '1.2s', left: '80%' }} />
+                  <span className="smoke-particle" style={{ animationDelay: '0.7s', left: '50%' }} />
+                  <span className="smoke-particle" style={{ animationDelay: '1.4s', left: '78%' }} />
                 </>
               )}
             </span>
