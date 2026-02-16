@@ -144,11 +144,7 @@ const HeroSection = ({ setIsModalOpen }) => {
   const part1 = 'SAY ';
   const part3 = ' TO DRUGS';
 
-  // Ignite on typewriter complete, extinguish after 3.5s
-  const handleTypingDone = () => {
-    setIsBurning(true);
-    setTimeout(() => setIsBurning(false), 3500);
-  };
+  const handleTypingDone = () => setIsBurning(true);
 
   return (
     <section className="relative overflow-hidden py-24 lg:py-32">
@@ -180,14 +176,13 @@ const HeroSection = ({ setIsModalOpen }) => {
               </motion.span>
             ))}
 
-            {/* NO — top-edge flame overlay, text stays red throughout */}
+            {/* NO — full letter burns then settles */}
             <span className="relative inline-block">
-              <span className="text-dpeen-red">NO</span>
-
-              {/* Partial flame: only covers the top ~45% of the letters */}
+              <span className={isBurning ? 'burning-text' : 'text-dpeen-red'}>
+                NO
+              </span>
               {isBurning && (
                 <>
-                  <span key={Date.now()} className="burning-tip" />
                   <span className="smoke-particle" style={{ animationDelay: '0s',   left: '15%' }} />
                   <span className="smoke-particle" style={{ animationDelay: '0.7s', left: '50%' }} />
                   <span className="smoke-particle" style={{ animationDelay: '1.4s', left: '78%' }} />
