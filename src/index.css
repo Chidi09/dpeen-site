@@ -62,3 +62,46 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+/* ── Fire & Smoke Animation ── */
+@keyframes flicker {
+  0%, 100% {
+    text-shadow:
+      0 -5px 4px #FFD700,
+      2px -10px 6px #FF8C00,
+      -2px -15px 10px #FF4500,
+      0 -25px 20px #8B0000;
+  }
+  50% {
+    text-shadow:
+      0 -7px 6px #FFD700,
+      -2px -12px 8px #FF8C00,
+      2px -18px 12px #FF4500,
+      0 -30px 25px #8B0000;
+  }
+}
+
+@keyframes smoke-rise {
+  0%   { transform: translateY(0) scale(1);    opacity: 0;   filter: blur(2px); }
+  50%  { opacity: 0.8; }
+  100% { transform: translateY(-40px) scale(1.5); opacity: 0; filter: blur(10px); }
+}
+
+.burning-text {
+  color: transparent;
+  background: linear-gradient(to top, #ffff00 0%, #ff0000 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: flicker 1.5s infinite alternate;
+}
+
+.smoke-particle {
+  position: absolute;
+  top: -10px;
+  width: 10px;
+  height: 10px;
+  background: rgba(100, 100, 100, 0.6);
+  border-radius: 50%;
+  animation: smoke-rise 2s infinite ease-out;
+  pointer-events: none;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, HeartPulse, Trophy, GraduationCap, ArrowRight, Activity, Hammer, Monitor, CheckCircle2, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -120,6 +120,113 @@ const ContactModal = ({ isOpen, onClose }) => {
 
 
 
+// --- HERO SECTION with typewriter + fire effect ---
+
+const letterVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.5,
+    },
+  },
+};
+
+const HeroSection = ({ setIsModalOpen }) => {
+  const [isBurning, setIsBurning] = useState(false);
+
+  const part1 = 'SAY ';
+  const part3 = ' TO DRUGS';
+
+  return (
+    <section className="relative overflow-hidden py-24 lg:py-32">
+      <div className="container px-4 md:px-6 relative z-10">
+        <div className="flex flex-col items-center text-center space-y-8">
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Badge variant="red" className="mb-4 px-4 py-1 text-sm font-medium">
+              EST. 2026 NGO
+            </Badge>
+          </motion.div>
+
+          {/* Typewriter headline */}
+          <motion.h1
+            className="font-baron text-5xl sm:text-7xl lg:text-9xl tracking-tighter text-primary relative"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            onAnimationComplete={() => setIsBurning(true)}
+          >
+            {/* SAY  */}
+            {part1.split('').map((char, i) => (
+              <motion.span key={`p1-${i}`} variants={letterVariants}>
+                {char === ' ' ? '\u00A0' : char}
+              </motion.span>
+            ))}
+
+            {/* NO — ignites when typing finishes */}
+            <span className="relative inline-block">
+              <span className={`transition-all duration-700 ${isBurning ? 'burning-text' : 'text-dpeen-red'}`}>
+                NO
+              </span>
+              {isBurning && (
+                <>
+                  <span className="smoke-particle" style={{ animationDelay: '0s',   left: '15%' }} />
+                  <span className="smoke-particle" style={{ animationDelay: '0.6s', left: '50%' }} />
+                  <span className="smoke-particle" style={{ animationDelay: '1.2s', left: '80%' }} />
+                </>
+              )}
+            </span>
+
+            {/* TO DRUGS */}
+            {part3.split('').map((char, i) => (
+              <motion.span key={`p3-${i}`} variants={letterVariants}>
+                {char === ' ' ? '\u00A0' : char}
+              </motion.span>
+            ))}
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 1.8 }}
+            className="font-carousel text-xl md:text-3xl text-muted-foreground max-w-[800px] leading-relaxed italic"
+          >
+            "To create a healthy and harmonious environment that supports growth, innovation and productivity."
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 2.1 }}
+            className="flex gap-4 pt-4"
+          >
+            <Button size="lg" variant="red" className="font-bold text-md px-8 rounded-full" onClick={() => setIsModalOpen(true)}>
+              Join The Network
+            </Button>
+            <Button size="lg" variant="outline" className="font-bold text-md px-8 rounded-full border-2">
+              Learn More
+            </Button>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Background Decorative Grid */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white [background-image:linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] [background-size:14px_24px]" />
+    </section>
+  );
+};
+
 // --- MAIN PAGE COMPONENT ---
 
 const FadeIn = ({ children, delay = 0 }) => (
@@ -156,58 +263,7 @@ export default function DpeenRedesign() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-24 lg:py-32">
-        <div className="container px-4 md:px-6 relative z-10">
-          <div className="flex flex-col items-center text-center space-y-8">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Badge variant="red" className="mb-4 px-4 py-1 text-sm font-medium">
-                EST. 2026 NGO
-              </Badge>
-            </motion.div>
-
-            {/* Typography Strategy: Baron for Impact */}
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="font-baron text-5xl sm:text-7xl lg:text-9xl tracking-tighter text-primary"
-            >
-              SAY <span className="text-dpeen-red">NO</span> TO DRUGS
-            </motion.h1>
-
-            {/* Typography Strategy: Carousel for Elegance */}
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="font-carousel text-xl md:text-3xl text-muted-foreground max-w-[800px] leading-relaxed italic"
-            >
-              "To create a healthy and harmonious environment that supports growth, innovation and productivity."
-            </motion.p>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="flex gap-4 pt-4"
-            >
-              <Button size="lg" variant="red" className="font-bold text-md px-8 rounded-full" onClick={() => setIsModalOpen(true)}>
-                Join The Network
-              </Button>
-              <Button size="lg" variant="outline" className="font-bold text-md px-8 rounded-full border-2">
-                Learn More
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-        
-        {/* Background Decorative Grid */}
-        <div className="absolute inset-0 -z-10 h-full w-full bg-white [background-image:linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] [background-size:14px_24px]"></div>
-      </section>
+      <HeroSection setIsModalOpen={setIsModalOpen} />
 
       {/* Value Statement - Elegant Typography Focus */}
       <section id="mission" className="py-20 bg-slate-50 border-y">
@@ -358,16 +414,16 @@ export default function DpeenRedesign() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t bg-white">
+      <footer className="py-12 border-t border-zinc-800 bg-zinc-950 text-zinc-400">
         <div className="container px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-2">
-            <img src="/dpeen-logo.svg" alt="DPEEN Logo" className="h-8 w-8 object-contain" />
-            <span className="font-baron text-lg">DPEEN</span>
+          <div className="flex items-center gap-3">
+            <img src="/dpeen-logo.svg" alt="DPEEN Logo" className="h-8 w-8 object-contain invert" />
+            <span className="font-baron text-lg text-white tracking-widest">DPEEN</span>
           </div>
-          <p className="text-sm text-muted-foreground font-carousel italic">
+          <p className="text-sm font-carousel italic text-zinc-500">
             "Transforming lives, one community at a time."
           </p>
-          <div className="text-sm text-muted-foreground">
+          <div className="text-sm">
             &copy; {new Date().getFullYear()} DPEEN. All rights reserved.
           </div>
         </div>
