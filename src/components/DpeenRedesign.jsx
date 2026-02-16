@@ -481,7 +481,7 @@ export default function DpeenRedesign() {
             {/* Crafts — with photo */}
             <div className="rounded-2xl relative group overflow-hidden border border-zinc-800">
               <img
-                src="https://images.unsplash.com/photo-1622675363311-ac97f3a9a2a3?q=80&w=800&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=800&auto=format&fit=crop"
                 alt="Crafts and furniture"
                 className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-all duration-500"
               />
@@ -496,7 +496,7 @@ export default function DpeenRedesign() {
             {/* Soap Making — with photo */}
             <div className="rounded-2xl relative group overflow-hidden border border-zinc-800">
               <img
-                src="https://images.unsplash.com/photo-1605265058749-78afeb665727?q=80&w=800&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=800&auto=format&fit=crop"
                 alt="Vocational training"
                 className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-all duration-500"
               />
