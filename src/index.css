@@ -94,7 +94,7 @@
   background: linear-gradient(to top, #ffff00 0%, #ff0000 60%);
   -webkit-background-clip: text;
   background-clip: text;
-  animation: flicker 1.5s ease-in-out 4 forwards;
+  animation: flicker 1.5s ease-in-out 2;
 }
 
 .smoke-particle {

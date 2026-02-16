@@ -144,7 +144,10 @@ const HeroSection = ({ setIsModalOpen }) => {
   const part1 = 'SAY ';
   const part3 = ' TO DRUGS';
 
-  const handleTypingDone = () => setIsBurning(true);
+  const handleTypingDone = () => {
+    setIsBurning(true);
+    setTimeout(() => setIsBurning(false), 3000);
+  };
 
   return (
     <section className="relative overflow-hidden py-24 lg:py-32">
