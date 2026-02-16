@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, HeartPulse, Trophy, GraduationCap, ArrowRight, Activity, Hammer, Monitor, CheckCircle2, X } from 'lucide-react';
+import { Shield, HeartPulse, Trophy, GraduationCap, ArrowRight, Activity, Hammer, Monitor, CheckCircle2, X, Users, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -151,6 +151,16 @@ const HeroSection = ({ setIsModalOpen }) => {
 
   return (
     <section className="relative overflow-hidden py-24 lg:py-32">
+      {/* Faded community background */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2664&auto=format&fit=crop"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover opacity-[0.07] grayscale"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/70 to-transparent" />
+      </div>
       <div className="container px-4 md:px-6 relative z-10">
         <div className="flex flex-col items-center text-center space-y-8">
 
@@ -232,6 +242,73 @@ const HeroSection = ({ setIsModalOpen }) => {
   );
 };
 
+// --- TRUSTEES & PARTNERS SECTION ---
+
+const TrusteesSection = () => {
+  const trustees = [
+    {
+      name: "Dr. Amara Okafor",
+      role: "Chairperson",
+      img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
+    },
+    {
+      name: "Chief Emeka Nnadi",
+      role: "Board Trustee",
+      img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop",
+    },
+    {
+      name: "Mrs. Ngozi Adeleke",
+      role: "Secretary",
+      img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=600&auto=format&fit=crop",
+    },
+  ];
+
+  return (
+    <section className="py-24 bg-white border-t border-slate-100">
+      <div className="container px-4 md:px-6 mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <span className="text-dpeen-red font-bold tracking-widest text-xs uppercase mb-2 block">Our Guidance</span>
+          <h2 className="font-baron text-4xl text-slate-900">LEADERSHIP & TRUSTEES</h2>
+          <div className="w-20 h-1 bg-dpeen-red mx-auto rounded-full mt-4" />
+        </div>
+
+        {/* Trustee cards */}
+        <div className="grid md:grid-cols-3 gap-10 mb-20">
+          {trustees.map((t, i) => (
+            <FadeIn key={i} delay={i * 0.1}>
+              <div className="group text-center">
+                <div className="aspect-square rounded-full max-w-[220px] mx-auto mb-6 overflow-hidden border-4 border-slate-50 shadow-xl group-hover:border-red-100 transition-colors duration-300">
+                  <img
+                    src={t.img}
+                    alt={t.name}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                  />
+                </div>
+                <h3 className="font-carousel text-2xl text-slate-900 mb-1">{t.name}</h3>
+                <p className="text-dpeen-red text-xs font-bold tracking-widest uppercase">{t.role}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+
+        {/* Partners strip */}
+        <FadeIn delay={0.3}>
+          <div className="border-t border-slate-100 pt-14">
+            <p className="text-center font-baron text-sm text-slate-400 tracking-widest mb-8">IN PARTNERSHIP WITH</p>
+            <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 hover:opacity-100 transition-opacity duration-500 grayscale hover:grayscale-0">
+              <div className="flex items-center gap-2 font-bold text-slate-700"><Building2 size={20} /> GOVT OF IMO STATE</div>
+              <div className="flex items-center gap-2 font-bold text-slate-700"><Shield size={20} /> NDLEA</div>
+              <div className="flex items-center gap-2 font-bold text-slate-700"><Users size={20} /> YOUTH COUNCIL</div>
+              <div className="flex items-center gap-2 font-bold text-slate-700"><HeartPulse size={20} /> HEALTH ORG</div>
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+};
+
 // --- MAIN PAGE COMPONENT ---
 
 const FadeIn = ({ children, delay = 0 }) => (
@@ -292,17 +369,18 @@ export default function DpeenRedesign() {
             </FadeIn>
             
             <FadeIn delay={0.2}>
-              <div className="relative aspect-square md:aspect-[4/3] bg-white rounded-xl border shadow-lg overflow-hidden flex flex-col items-center justify-center gap-6 p-8">
-                {/* Faint red circle backdrop */}
-                <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-white" />
-                <img
-                  src="/dpeen-logo.svg"
-                  alt="DPEEN emblem"
-                  className="relative z-10 w-48 h-48 object-contain opacity-90"
-                />
-                <div className="relative z-10 text-center">
-                  <h3 className="font-baron text-4xl">100%</h3>
-                  <p className="font-carousel text-lg text-gray-600">Dedication to Humanity</p>
+              <div className="relative group">
+                {/* Red accent block behind image */}
+                <div className="absolute inset-0 bg-red-600 rounded-3xl transform rotate-3 group-hover:rotate-6 transition-transform duration-500" />
+                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                  <img
+                    src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1000&auto=format&fit=crop"
+                    alt="Empowered African youth"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                    <p className="text-white font-baron text-lg tracking-wide">EMPOWERING THE NEXT GENERATION</p>
+                  </div>
                 </div>
               </div>
             </FadeIn>
@@ -382,53 +460,109 @@ export default function DpeenRedesign() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Large Card */}
-            <div className="md:col-span-2 bg-zinc-900 rounded-xl p-8 border border-zinc-800 relative group overflow-hidden">
-              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Monitor size={120} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:h-[500px]">
+            {/* Large Card: ICT — with photo */}
+            <div className="md:col-span-2 rounded-2xl relative group overflow-hidden border border-zinc-800">
+              <img
+                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop"
+                alt="ICT training"
+                className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-45 group-hover:scale-105 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+              <div className="relative z-10 p-8 h-full flex flex-col justify-end">
+                <Monitor className="text-red-500 mb-4" size={40} />
+                <h3 className="font-baron text-2xl mb-3 text-red-400">ICT & TECH HUBS</h3>
+                <p className="text-gray-300 max-w-md text-sm leading-relaxed">
+                  Establishment of training hubs in every zone. We equip youths with modern digital skills to ensure steady and reliable income.
+                </p>
               </div>
-              <h3 className="font-baron text-2xl mb-4 text-dpeen-red">ICT & TECH HUBS</h3>
-              <p className="text-gray-400 max-w-md relative z-10">
-                Establishment of training hubs in every zone. We equip youths with modern digital skills to ensure they are competitive in the global market.
-              </p>
             </div>
 
-            {/* Small Cards */}
-            <div className="bg-zinc-900 rounded-xl p-8 border border-zinc-800 flex flex-col justify-center">
-              <Hammer className="mb-4 text-white" size={32} />
-              <h3 className="font-bold text-lg mb-2">Crafts & Furniture</h3>
-              <p className="text-sm text-gray-500">Building practical skills for immediate employment.</p>
+            {/* Crafts — with photo */}
+            <div className="rounded-2xl relative group overflow-hidden border border-zinc-800">
+              <img
+                src="https://images.unsplash.com/photo-1622675363311-ac97f3a9a2a3?q=80&w=800&auto=format&fit=crop"
+                alt="Crafts and furniture"
+                className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-black/50" />
+              <div className="relative z-10 p-8 h-full flex flex-col justify-end">
+                <Hammer className="mb-3 text-white" size={28} />
+                <h3 className="font-bold text-lg">Crafts & Furniture</h3>
+                <p className="text-sm text-gray-400 mt-1">Practical skills for immediate employment.</p>
+              </div>
             </div>
 
-            <div className="bg-zinc-900 rounded-xl p-8 border border-zinc-800 flex flex-col justify-center">
-              <Activity className="mb-4 text-white" size={32} />
-              <h3 className="font-bold text-lg mb-2">Soap Making & Cooking</h3>
-              <p className="text-sm text-gray-500">Vocational training for self-reliance.</p>
+            {/* Soap Making — with photo */}
+            <div className="rounded-2xl relative group overflow-hidden border border-zinc-800">
+              <img
+                src="https://images.unsplash.com/photo-1605265058749-78afeb665727?q=80&w=800&auto=format&fit=crop"
+                alt="Vocational training"
+                className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-black/50" />
+              <div className="relative z-10 p-8 h-full flex flex-col justify-end">
+                <Activity className="mb-3 text-white" size={28} />
+                <h3 className="font-bold text-lg">Soap Making & Cooking</h3>
+                <p className="text-sm text-gray-400 mt-1">Vocational training for self-reliance.</p>
+              </div>
             </div>
 
-             <div className="md:col-span-2 bg-dpeen-red rounded-xl p-8 flex items-center justify-between">
-               <div>
-                  <h3 className="font-baron text-2xl text-white mb-1">SCHOLARSHIP PLACEMENTS</h3>
-                  <p className="text-red-100 text-sm">For those qualified and eager to continue schooling.</p>
-               </div>
-               <ArrowRight className="text-white" />
+            {/* Scholarship strip */}
+            <div className="md:col-span-2 bg-dpeen-red rounded-2xl p-8 flex items-center justify-between">
+              <div>
+                <h3 className="font-baron text-2xl text-white mb-1">SCHOLARSHIP PLACEMENTS</h3>
+                <p className="text-red-100 text-sm">For those qualified and eager to continue schooling.</p>
+              </div>
+              <ArrowRight className="text-white flex-shrink-0" />
             </div>
           </div>
         </div>
       </section>
 
+      {/* Trustees & Partners */}
+      <TrusteesSection />
+
       {/* Footer */}
-      <footer className="py-12 border-t border-zinc-800 bg-zinc-950 text-zinc-400">
-        <div className="container px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-3">
-            <img src="/dpeen-logo.svg" alt="DPEEN Logo" className="h-8 w-8 object-contain invert" />
-            <span className="font-baron text-lg text-white tracking-widest">DPEEN</span>
+      <footer className="py-16 border-t border-zinc-800 bg-zinc-950 text-zinc-400">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
+            {/* Brand */}
+            <div className="max-w-xs">
+              <div className="flex items-center gap-3 mb-4">
+                <img src="/dpeen-logo.svg" alt="DPEEN Logo" className="h-8 w-8 object-contain invert" />
+                <span className="font-baron text-xl text-white tracking-widest">DPEEN</span>
+              </div>
+              <p className="text-sm font-carousel italic text-zinc-500 leading-relaxed">
+                "Transforming lives and communities by preventing drug use, treating addiction, and promoting recovery."
+              </p>
+            </div>
+
+            {/* Links */}
+            <div className="grid grid-cols-2 gap-12">
+              <div>
+                <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-xs">Program</h4>
+                <ul className="space-y-3 text-sm">
+                  <li><a href="#program" className="hover:text-dpeen-red transition-colors">Prevention</a></li>
+                  <li><a href="#program" className="hover:text-dpeen-red transition-colors">Rehabilitation</a></li>
+                  <li><a href="#program" className="hover:text-dpeen-red transition-colors">Recreation</a></li>
+                  <li><a href="#empowerment" className="hover:text-dpeen-red transition-colors">Empowerment</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-xs">Get Involved</h4>
+                <ul className="space-y-3 text-sm">
+                  <li><button onClick={() => setIsModalOpen(true)} className="hover:text-dpeen-red transition-colors text-left">Partner With Us</button></li>
+                  <li><button onClick={() => setIsModalOpen(true)} className="hover:text-dpeen-red transition-colors text-left">Donate</button></li>
+                  <li><button onClick={() => setIsModalOpen(true)} className="hover:text-dpeen-red transition-colors text-left">Volunteer</button></li>
+                  <li><button onClick={() => setIsModalOpen(true)} className="hover:text-dpeen-red transition-colors text-left">Get Help</button></li>
+                </ul>
+              </div>
+            </div>
           </div>
-          <p className="text-sm font-carousel italic text-zinc-500">
-            "Transforming lives, one community at a time."
-          </p>
-          <div className="text-sm">
+
+          {/* Bottom bar */}
+          <div className="border-t border-zinc-800 pt-8 text-xs text-center text-zinc-600">
             &copy; {new Date().getFullYear()} DPEEN. All rights reserved.
           </div>
         </div>
