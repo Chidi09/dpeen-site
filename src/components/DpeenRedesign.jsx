@@ -143,7 +143,7 @@ export default function DpeenRedesign() {
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 bg-dpeen-red rounded-full flex items-center justify-center text-white font-baron text-lg">D</div>
+            <img src="/dpeen-logo.svg" alt="DPEEN Logo" className="h-10 w-10 object-contain" />
             <span className="font-baron text-xl tracking-wider">DPEEN</span>
           </div>
           <div className="hidden md:flex gap-6">
@@ -231,20 +231,18 @@ export default function DpeenRedesign() {
             </FadeIn>
             
             <FadeIn delay={0.2}>
-              {/* Abstract Visual Representation */}
-              <div className="relative aspect-square md:aspect-[4/3] bg-white rounded-xl border shadow-lg overflow-hidden p-8 flex items-center justify-center">
-                 <div className="grid grid-cols-2 gap-4 w-full h-full opacity-20">
-                    <div className="bg-black rounded-lg"></div>
-                    <div className="bg-dpeen-red rounded-lg"></div>
-                    <div className="bg-gray-300 rounded-lg"></div>
-                    <div className="bg-black rounded-lg"></div>
-                 </div>
-                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                        <h3 className="font-baron text-5xl">100%</h3>
-                        <p className="font-carousel text-xl">Dedication to Humanity</p>
-                    </div>
-                 </div>
+              <div className="relative aspect-square md:aspect-[4/3] bg-white rounded-xl border shadow-lg overflow-hidden flex flex-col items-center justify-center gap-6 p-8">
+                {/* Faint red circle backdrop */}
+                <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-white" />
+                <img
+                  src="/dpeen-logo.svg"
+                  alt="DPEEN emblem"
+                  className="relative z-10 w-48 h-48 object-contain opacity-90"
+                />
+                <div className="relative z-10 text-center">
+                  <h3 className="font-baron text-4xl">100%</h3>
+                  <p className="font-carousel text-lg text-gray-600">Dedication to Humanity</p>
+                </div>
               </div>
             </FadeIn>
           </div>
@@ -363,7 +361,7 @@ export default function DpeenRedesign() {
       <footer className="py-12 border-t bg-white">
         <div className="container px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2">
-            <div className="h-6 w-6 bg-black rounded-full flex items-center justify-center text-white text-xs font-bold">D</div>
+            <img src="/dpeen-logo.svg" alt="DPEEN Logo" className="h-8 w-8 object-contain" />
             <span className="font-baron text-lg">DPEEN</span>
           </div>
           <p className="text-sm text-muted-foreground font-carousel italic">
