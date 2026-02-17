@@ -247,19 +247,24 @@ const HeroSection = ({ setIsModalOpen }) => {
 const TrusteesSection = () => {
   const trustees = [
     {
-      name: "Dr. Amara Okafor",
-      role: "Chairperson",
-      img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
+      name: "Gibson Ngoka",
+      role: "President",
+      img: "https://i.pravatar.cc/400?u=gibson-ngoka",
     },
     {
-      name: "Chief Emeka Nnadi",
-      role: "Board Trustee",
-      img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop",
-    },
-    {
-      name: "Mrs. Ngozi Adeleke",
+      name: "Charles Alaribe",
       role: "Secretary",
-      img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=600&auto=format&fit=crop",
+      img: "https://i.pravatar.cc/400?u=charles-alaribe",
+    },
+    {
+      name: "Uzoma Chinnaya",
+      role: "Trustee",
+      img: "https://i.pravatar.cc/400?u=uzoma-chinnaya",
+    },
+    {
+      name: "Pastor Joseph Onwochei",
+      role: "Trustee",
+      img: "https://i.pravatar.cc/400?u=pastor-joseph-onwochei",
     },
   ];
 
@@ -274,7 +279,7 @@ const TrusteesSection = () => {
         </div>
 
         {/* Trustee cards */}
-        <div className="grid md:grid-cols-3 gap-10 mb-20">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-20">
           {trustees.map((t, i) => (
             <FadeIn key={i} delay={i * 0.1}>
               <div className="group text-center">
