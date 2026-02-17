@@ -249,22 +249,18 @@ const TrusteesSection = () => {
     {
       name: "Gibson Ngoka",
       role: "President",
-      img: "https://i.pravatar.cc/400?u=gibson-ngoka",
     },
     {
       name: "Charles Alaribe",
       role: "Secretary",
-      img: "https://i.pravatar.cc/400?u=charles-alaribe",
     },
     {
       name: "Uzoma Chinnaya",
       role: "Trustee",
-      img: "https://i.pravatar.cc/400?u=uzoma-chinnaya",
     },
     {
       name: "Pastor Joseph Onwochei",
       role: "Trustee",
-      img: "https://i.pravatar.cc/400?u=pastor-joseph-onwochei",
     },
   ];
 
@@ -282,15 +278,8 @@ const TrusteesSection = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-20">
           {trustees.map((t, i) => (
             <FadeIn key={i} delay={i * 0.1}>
-              <div className="group text-center">
-                <div className="aspect-square rounded-full max-w-[220px] mx-auto mb-6 overflow-hidden border-4 border-slate-50 shadow-xl group-hover:border-red-100 transition-colors duration-300">
-                  <img
-                    src={t.img}
-                    alt={t.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                  />
-                </div>
-                <h3 className="font-carousel text-2xl text-slate-900 mb-1">{t.name}</h3>
+              <div className="text-center py-6">
+                <h3 className="font-carousel text-2xl text-slate-900 mb-2">{t.name}</h3>
                 <p className="text-dpeen-red text-xs font-bold tracking-widest uppercase">{t.role}</p>
               </div>
             </FadeIn>
