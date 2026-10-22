@@ -1,4 +1,8 @@
 import { expect, test } from '@playwright/test';
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('dpeen-notice', '1'));
+});
 import { enquirySchema } from '../src/lib/enquiry';
 
 test('content and metadata render without runtime errors', async ({ page }) => {
@@ -46,7 +50,9 @@ test('donations show bank details, trap focus and close with Escape', async ({
   const dialog = page.getByRole('dialog', { name: 'Support the cause' });
   await expect(dialog).toBeVisible();
   await expect(dialog).toContainText('1031463749');
-  await expect(dialog.getByRole('img', { name: 'UBA', exact: true })).toBeVisible();
+  await expect(
+    dialog.getByRole('img', { name: 'UBA', exact: true }),
+  ).toBeVisible();
   for (let i = 0; i < 5; i++) {
     await page.keyboard.press('Tab');
     expect(

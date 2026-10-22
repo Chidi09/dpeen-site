@@ -1597,9 +1597,6 @@ footer button:hover {
   .motion-ready .campaign-actions {
     animation-delay: 0.24s;
   }
-  .motion-ready .campaign-composition {
-    animation: editorial-entrance 1s 0.25s both;
-  }
   dialog[open] {
     animation: dialog-entrance 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
@@ -1612,18 +1609,20 @@ footer button:hover {
       background-color 0.2s ease,
       box-shadow 0.2s ease;
   }
-  .button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px #24241a12;
-  }
   .button:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.97);
   }
   .button span[aria-hidden] {
     transition: transform 0.2s ease;
   }
-  .button:hover span[aria-hidden] {
-    transform: translate(2px, -2px);
+  @media (hover: hover) and (pointer: fine) {
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px #24241a12;
+    }
+    .button:hover span[aria-hidden] {
+      transform: translate(2px, -2px);
+    }
   }
   .opportunity-card {
     overflow: hidden;
@@ -1633,14 +1632,16 @@ footer button:hover {
   .journey-art img {
     transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
-  .opportunity-card:hover img {
-    transform: scale(1.035);
-  }
-  .trustee-card:hover .trustee-photo {
-    transform: scale(1.035);
-  }
-  .journey-stage:hover .journey-art img {
-    transform: translateY(-5px) rotate(-2deg);
+  @media (hover: hover) and (pointer: fine) {
+    .opportunity-card:hover img {
+      transform: scale(1.035);
+    }
+    .trustee-card:hover .trustee-photo {
+      transform: scale(1.035);
+    }
+    .journey-stage:hover .journey-art img {
+      transform: translateY(-5px) rotate(-2deg);
+    }
   }
   @keyframes editorial-entrance {
     from {
@@ -1731,5 +1732,555 @@ footer button:hover {
     right: -12px;
     bottom: -65px;
     opacity: 0.38;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Polish: header, hero, scroll reveals, form states, cookie notice,
+   legal pages. All movement lives inside prefers-reduced-motion blocks.
+------------------------------------------------------------------- */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Header */
+.site-header {
+  transition: box-shadow 0.25s ease;
+}
+.site-header.is-scrolled {
+  box-shadow:
+    0 1px 0 #e4ded3,
+    0 12px 28px -18px #24241a40;
+}
+.scroll-progress {
+  display: none;
+}
+.nav-link {
+  position: relative;
+  width: fit-content;
+  transition: color 0.15s ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1.5px;
+  background: #b52f32;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.28s var(--ease-out);
+}
+.nav-link[aria-current] {
+  color: #0f172a;
+}
+.nav-link[aria-current]::after {
+  transform: scaleX(1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover {
+    color: #0f172a;
+  }
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Footer and text links */
+footer a,
+footer button {
+  transition: color 0.15s ease;
+  text-underline-offset: 4px;
+}
+footer a:focus-visible,
+footer button:focus-visible {
+  color: #fff;
+}
+.text-link span[aria-hidden] {
+  display: inline-block;
+  transition: transform 0.2s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  footer a:hover,
+  footer button:hover {
+    color: #fff;
+  }
+  .text-link:hover span[aria-hidden] {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* Hero emphasis stroke under "NO" (static when motion is off) */
+.campaign-title em {
+  position: relative;
+  display: inline-block;
+}
+.title-stroke {
+  position: absolute;
+  left: -2%;
+  bottom: -0.06em;
+  width: 104%;
+  height: 0.15em;
+  overflow: visible;
+  fill: none;
+  stroke: #b52f32;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+.title-stroke path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+/* Emphasised words in section headings carry a thin underline */
+.display-heading em {
+  background: linear-gradient(#b52f3266, #b52f3266) no-repeat 0 96% / 100% 2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.empowerment-editorial .display-heading em {
+  background-image: linear-gradient(#f0a89899, #f0a89899);
+}
+
+/* Form states */
+.enquiry-form input,
+.enquiry-form textarea,
+.enquiry-form select {
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.enquiry-form[data-state='success'] [role='status'] {
+  color: #2f6b3a;
+  font-weight: 500;
+}
+.enquiry-form[data-state='success'] [role='status']::before {
+  content: '✓ ';
+}
+.enquiry-form[data-state='error'] [role='status'] {
+  color: #a52727;
+}
+.enquiry-form[data-state='sending'] .enquiry-submit span[aria-hidden] {
+  position: relative;
+  visibility: hidden;
+}
+.enquiry-form[data-state='sending'] .enquiry-submit span[aria-hidden]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border: 2px solid #ffffff55;
+  border-top-color: #fff;
+  border-radius: 50%;
+  visibility: visible;
+  animation: spin 0.7s linear infinite;
+}
+
+/* Cookie notice */
+.cookie-notice {
+  position: fixed;
+  z-index: 50;
+  left: 16px;
+  right: 16px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  max-width: 560px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 18px;
+  border: 1px solid #e4ded3;
+  border-radius: 18px;
+  background: #fffefa;
+  box-shadow:
+    0 18px 50px -12px #15191238,
+    0 2px 8px #1519120d;
+  opacity: 0;
+  translate: 0 14px;
+  transition:
+    opacity 0.18s ease-out,
+    translate 0.2s ease-out;
+}
+.cookie-notice[hidden] {
+  display: none;
+}
+.cookie-notice.is-visible {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity 0.3s var(--ease-out),
+    translate 0.35s var(--ease-out);
+}
+.cookie-notice p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #68655f;
+}
+.cookie-notice .cookie-notice-title {
+  margin-bottom: 2px;
+  font-weight: 600;
+  color: #24251e;
+}
+.cookie-notice a {
+  color: #a52727;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cookie-notice .button {
+  flex: none;
+  min-height: 42px;
+  padding: 0.5rem 1.2rem;
+}
+@media (min-width: 640px) {
+  .cookie-notice {
+    left: 24px;
+    right: auto;
+    bottom: max(24px, env(safe-area-inset-bottom));
+  }
+}
+@media (max-width: 479px) {
+  .cookie-notice {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .cookie-notice .button {
+    width: 100%;
+  }
+}
+
+/* Legal pages */
+.legal-page {
+  padding: 56px 0 110px;
+  background: #fffefa;
+}
+.legal-article {
+  max-width: 760px;
+  margin-inline: auto;
+}
+.legal-back {
+  display: inline-flex;
+  gap: 8px;
+  margin-bottom: 40px;
+  font-size: 14px;
+  color: #68655f;
+  transition: color 0.15s ease;
+}
+.legal-back span {
+  transition: transform 0.2s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .legal-back:hover {
+    color: #0f172a;
+  }
+  .legal-back:hover span {
+    transform: translateX(-3px);
+  }
+}
+.legal-updated {
+  margin-top: 18px;
+  font-size: 14px;
+  color: #68655f;
+}
+.legal-body {
+  margin-top: 40px;
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: #3b3a34;
+}
+.legal-body h2 {
+  margin: 44px 0 12px;
+  font-family: 'Carousel', Georgia, serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: #24251e;
+}
+.legal-body p,
+.legal-body ul {
+  margin-top: 14px;
+}
+.legal-body ul {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.legal-body li {
+  margin-top: 8px;
+  padding-left: 4px;
+}
+.legal-body li::marker {
+  color: #b52f32;
+}
+.legal-body strong {
+  font-weight: 600;
+  color: #24251e;
+}
+.legal-body a {
+  color: #a52727;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.legal-body code {
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  background: #f2f0e9;
+  font-size: 0.9em;
+}
+.legal-table-wrap {
+  margin-top: 18px;
+  overflow-x: auto;
+  border: 1px solid #e4ded3;
+  border-radius: 12px;
+}
+.legal-body table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.legal-body th,
+.legal-body td {
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #e4ded3;
+}
+.legal-body thead th {
+  border-top: 0;
+  background: #f7f4ec;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #68655f;
+}
+@media (max-width: 639px) {
+  .legal-page {
+    padding-top: 36px;
+  }
+  .legal-body h2 {
+    font-size: 23px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Soft crossfade between the home page and the policy pages */
+  @view-transition {
+    navigation: auto;
+  }
+  .site-header {
+    view-transition-name: site-header;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.18s;
+  }
+
+  /* Reading progress, drawn by scroll position with no JavaScript */
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      display: block;
+      position: absolute;
+      inset: auto 0 0;
+      height: 2px;
+      background: #b52f32;
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      /* Longhands on purpose: the minifier would fold a full set into the
+         shorthand, which older browsers reject along with the timeline. */
+      animation-name: scroll-progress;
+      animation-duration: 1ms;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root);
+    }
+    @keyframes scroll-progress {
+      to {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  /* Mobile menu opens with a short drop-in */
+  @media (max-width: 767px) {
+    #main-menu.flex {
+      animation: menu-in 0.22s var(--ease-out) both;
+    }
+    @keyframes menu-in {
+      from {
+        opacity: 0;
+        translate: 0 -6px;
+      }
+    }
+  }
+
+  /* Hero: each piece enters in turn, then drifts gently */
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      translate: 0 22px;
+      scale: 0.94;
+    }
+  }
+  @keyframes drift {
+    to {
+      translate: 0 -8px;
+    }
+  }
+  @keyframes orbit-in {
+    from {
+      opacity: 0;
+      scale: 0.92;
+    }
+  }
+  @keyframes orbit-breathe {
+    to {
+      scale: 1.025;
+    }
+  }
+  @keyframes draw-stroke {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  .motion-ready .campaign-orbit {
+    animation:
+      orbit-in 1.2s 0.15s var(--ease-out) both,
+      orbit-breathe 9s 1.4s ease-in-out infinite alternate;
+  }
+  .motion-ready .campaign-main-photo {
+    animation: pop-in 0.9s 0.3s var(--ease-out) both;
+  }
+  .motion-ready .campaign-side-photo,
+  .motion-ready .campaign-note,
+  .motion-ready .campaign-seal {
+    animation:
+      pop-in 0.8s var(--enter, 0.6s) var(--ease-out) both,
+      drift var(--drift, 7s) calc(var(--enter, 0.6s) + 0.8s) ease-in-out
+        infinite alternate;
+  }
+  .campaign-photo-left {
+    --enter: 0.55s;
+    --drift: 7s;
+  }
+  .note-prevention {
+    --enter: 0.7s;
+    --drift: 8.5s;
+  }
+  .campaign-photo-right {
+    --enter: 0.85s;
+    --drift: 7.5s;
+  }
+  .note-recovery {
+    --enter: 1s;
+    --drift: 9s;
+  }
+  .campaign-seal {
+    --enter: 1.15s;
+    --drift: 6.5s;
+  }
+  .campaign-hero.is-offscreen .campaign-orbit,
+  .campaign-hero.is-offscreen .campaign-side-photo,
+  .campaign-hero.is-offscreen .campaign-note,
+  .campaign-hero.is-offscreen .campaign-seal {
+    animation-play-state: paused;
+  }
+  .motion-ready .title-stroke path {
+    stroke-dashoffset: 1;
+    animation: draw-stroke 0.8s 1s var(--ease-out) forwards;
+  }
+
+  /* Heading underline draws in as its section is revealed */
+  .motion-ready .display-heading em {
+    transition: background-size 0.9s 0.4s var(--ease-out);
+  }
+  .motion-ready .reveal-on-scroll:not(.is-revealed) .display-heading em {
+    background-size: 0 2px;
+  }
+
+  /* Mission principles arrive one after another */
+  .motion-ready .mission-principles li {
+    transition:
+      opacity 0.55s var(--ease-out),
+      translate 0.65s var(--ease-out);
+  }
+  .motion-ready .mission-principles li:nth-child(1) {
+    transition-delay: 0.25s;
+  }
+  .motion-ready .mission-principles li:nth-child(2) {
+    transition-delay: 0.32s;
+  }
+  .motion-ready .mission-principles li:nth-child(3) {
+    transition-delay: 0.39s;
+  }
+  .motion-ready .mission-principles li:nth-child(4) {
+    transition-delay: 0.46s;
+  }
+  .motion-ready .mission-principles.reveal-on-scroll:not(.is-revealed) li {
+    opacity: 0;
+    translate: 0 12px;
+  }
+
+  /* Program illustrations settle into place with their card */
+  .motion-ready .journey-art img {
+    transition:
+      opacity 0.7s var(--ease-out) calc(var(--reveal-delay, 0ms) + 120ms),
+      scale 0.9s var(--ease-out) calc(var(--reveal-delay, 0ms) + 120ms),
+      translate 0.9s var(--ease-out) calc(var(--reveal-delay, 0ms) + 120ms),
+      transform 0.55s var(--ease-out);
+  }
+  .motion-ready
+    .journey-stage.reveal-on-scroll:not(.is-revealed)
+    .journey-art
+    img {
+    opacity: 0;
+    scale: 0.9;
+    translate: 0 14px;
+  }
+
+  /* Opportunity photos are uncovered from the top down */
+  .motion-ready .opportunity-card img {
+    clip-path: inset(0 round 10px);
+    transition:
+      clip-path 1s var(--ease-out) calc(var(--reveal-delay, 0ms) + 150ms),
+      transform 0.55s var(--ease-out);
+  }
+  .motion-ready .opportunity-card.reveal-on-scroll:not(.is-revealed) img {
+    clip-path: inset(0 0 100% 0 round 10px);
+  }
+
+  /* Trustee portraits ease in with their card */
+  .motion-ready .trustee-photo {
+    transition:
+      scale 0.8s var(--ease-out) calc(var(--reveal-delay, 0ms) + 100ms),
+      transform 0.55s var(--ease-out);
+  }
+  .motion-ready
+    .trustee-card.reveal-on-scroll:not(.is-revealed)
+    .trustee-photo {
+    scale: 0.88;
+  }
+
+  /* Form feedback */
+  @keyframes status-in {
+    from {
+      opacity: 0;
+      translate: 0 6px;
+    }
+  }
+  .enquiry-form [role='status']:not(:empty) {
+    animation: status-in 0.3s var(--ease-out) both;
   }
 }

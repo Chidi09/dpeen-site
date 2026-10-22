@@ -1,13 +1,15 @@
 ---
 import { SEO } from 'astro-seo';
+import CookieNotice from '../components/CookieNotice.astro';
 import '../styles/global.css';
 import {
   createStructuredData,
   serializeStructuredData,
 } from '../lib/structured-data';
-const title = 'DPEEN | Say NO to Drugs';
-const description =
-  'Transforming lives and communities through drug prevention, rehabilitation, recovery and empowerment.';
+const {
+  title = 'DPEEN | Say NO to Drugs',
+  description = 'Transforming lives and communities through drug prevention, rehabilitation, recovery and empowerment.',
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const structuredData = serializeStructuredData(
   createStructuredData(Astro.site!, canonical),
@@ -55,6 +57,7 @@ const image = new URL('/open-graph/home.png', Astro.site).href;
       Skip to content
     </a>
     <slot />
+    <CookieNotice />
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
