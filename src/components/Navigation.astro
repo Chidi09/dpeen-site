@@ -1,0 +1,37 @@
+<header class="sticky top-0 z-40 bg-[#fffefa]/95 backdrop-blur">
+  <nav
+    class="container flex min-h-20 flex-wrap items-center justify-between gap-4 py-3"
+    aria-label="Main navigation"
+  >
+    <a
+      href="/"
+      class="order-1 flex items-center gap-2 text-lg font-semibold tracking-tight"
+    >
+      <img src="/dpeen-logo.svg" alt="" width="40" height="40" />
+      DPEEN
+    </a>
+    <div class="order-2 flex items-center gap-2 md:order-3">
+      <button class="button button-dark" data-donate>
+        Donate now
+      </button>
+      <button
+        id="menu-toggle"
+        class="button button-outline md:hidden"
+        aria-expanded="false"
+        aria-controls="main-menu"
+      >
+        Menu
+      </button>
+    </div>
+    <div
+      id="main-menu"
+      class="order-3 hidden w-full flex-col gap-4 pb-3 text-sm font-medium text-slate-600 md:order-2 md:ml-auto md:mr-6 md:flex md:w-auto md:flex-row md:gap-6 md:pb-0"
+    >
+      <a href="#mission">Mission</a>
+      <a href="#program">Programs</a>
+      <a href="#empowerment">Empowerment</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>

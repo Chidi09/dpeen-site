@@ -1,0 +1,64 @@
+---
+const opportunities = [
+  {
+    title: 'ICT & tech hubs',
+    image: 'photo-1531482615713-2afd69097998',
+    alt: 'People learning digital skills together',
+    description:
+      'Establishment of training hubs in every zone. We equip youths with modern digital skills to ensure steady and reliable income.',
+  },
+  {
+    title: 'Crafts & furniture',
+    image: 'photo-1503602642458-232111445657',
+    alt: 'A crafted wooden chair',
+    description: 'Practical skills for immediate employment.',
+  },
+  {
+    title: 'Soap making & cooking',
+    image: 'photo-1556911220-bff31c812dba',
+    alt: 'A kitchen for practical cooking skills',
+    description: 'Vocational training for self-reliance.',
+  },
+];
+---
+
+<section id="empowerment" class="empowerment-editorial">
+  <div class="container">
+    <div class="opportunity-heading">
+      <div>
+        <p class="section-label">03 / Skills &amp; opportunity</p>
+        <h2 class="display-heading">
+          Poverty <em>eradication.</em>
+        </h2>
+        <p class="opportunity-intro">
+          Reliable income through verified skills.
+        </p>
+      </div>
+      <button class="button opportunity-button" data-enquiry="Partner as a Hub">
+        Partner with us <span aria-hidden="true">↗</span>
+      </button>
+    </div>
+    <div class="opportunity-grid">
+      {opportunities.map((opportunity) => (
+        <article class="opportunity-card">
+          <img
+            src={`https://images.unsplash.com/${opportunity.image}?q=80&w=900&auto=format&fit=crop`}
+            alt={opportunity.alt}
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+          <h3>{opportunity.title}</h3>
+          <p>{opportunity.description}</p>
+        </article>
+      ))}
+    </div>
+    <div class="scholarship-row">
+      <span class="scholarship-label">Continuing education</span>
+      <div>
+        <h3>Scholarship placements</h3>
+        <p>For those qualified and eager to continue schooling.</p>
+      </div>
+    </div>
+  </div>
+</section>

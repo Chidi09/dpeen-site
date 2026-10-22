@@ -1,0 +1,128 @@
+---
+import EnquiryForm from './EnquiryForm.astro';
+---
+
+<dialog
+  id="donation-dialog"
+  class="donation-designed"
+  aria-labelledby="donation-title"
+>
+  <div class="donation-image-header">
+    <img src="/images/community-support.jpg" alt="" width="1200" height="800" />
+    <button class="dialog-close" data-close aria-label="Close donation dialog">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="m6 6 12 12M18 6 6 18"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+    <div class="donation-image-caption">
+      <p>Small acts. Lasting change.</p>
+      <h2 id="donation-title">Support the cause</h2>
+    </div>
+  </div>
+  <div class="donation-body">
+    <p class="donation-introduction">
+      Help create healthier futures through education, recovery and practical
+      skills.
+    </p>
+    <div class="donation-transfer">
+      <div class="donation-bank-row">
+        <span class="receipt-label">Bank transfer</span>
+        <img
+          class="donation-bank-logo"
+          src="/images/uba-logo.svg"
+          alt="UBA"
+          width="72"
+          height="32"
+        />
+      </div>
+      <dl>
+        <div class="donation-number-row">
+          <dt class="receipt-label">Account number</dt>
+          <dd class="donation-number-action">
+            <span class="donation-account-number">1031463749</span>{' '}
+            <button
+              id="copy-account"
+              class="donation-copy-button"
+              aria-label="Copy account number"
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <rect
+                  x="8"
+                  y="8"
+                  width="12"
+                  height="13"
+                  rx="2"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
+              </svg>
+              <span data-copy-label>Copy</span>
+            </button>
+          </dd>
+        </div>
+        <div class="donation-account-holder">
+          <dt class="receipt-label">Account name</dt>
+          <dd>DRUGS PREVENTION EDUCATION AND EMPOWERMENT NETWORK</dd>
+        </div>
+      </dl>
+    </div>
+    <p class="donation-footnote">
+      Make your transfer from your banking app using the details above.
+    </p>
+    <p id="copy-status" class="dialog-status" role="status"></p>
+  </div>
+</dialog>
+<dialog id="enquiry-dialog" aria-labelledby="enquiry-title">
+  <div class="dialog-content">
+    <button class="dialog-close" data-close aria-label="Close enquiry dialog">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="m6 6 12 12M18 6 6 18"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+    <p class="dialog-eyebrow">DPEEN / Get in touch</p>
+    <h2 id="enquiry-title" class="dialog-title">
+      Get involved
+    </h2>
+    <p class="dialog-description">
+      Tell us how you’d like to get involved. Our team will reply by email.
+    </p>
+    <EnquiryForm prefix="enquiry" interest="Partner as a Hub" />
+  </div>
+</dialog>
+<script>
+  import { initializeInteractions } from '../scripts/interactions';
+  initializeInteractions();
+</script>

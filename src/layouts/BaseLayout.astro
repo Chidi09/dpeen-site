@@ -1,0 +1,66 @@
+---
+import { SEO } from 'astro-seo';
+import '../styles/global.css';
+import {
+  createStructuredData,
+  serializeStructuredData,
+} from '../lib/structured-data';
+const title = 'DPEEN | Say NO to Drugs';
+const description =
+  'Transforming lives and communities through drug prevention, rehabilitation, recovery and empowerment.';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const structuredData = serializeStructuredData(
+  createStructuredData(Astro.site!, canonical),
+);
+const image = new URL('/open-graph/home.png', Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffefa" />
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonical}
+      openGraph={{
+        basic: { title, type: 'website', image, url: canonical },
+        optional: { description, siteName: 'DPEEN' },
+        image: { width: 1200, height: 630, alt: 'DPEEN — Say NO to Drugs' },
+      }}
+      twitter={{ card: 'summary_large_image', title, description, image }}
+    />
+    <script type="application/ld+json" set:html={structuredData} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=dpeen-logo" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="16x16 32x32 48x48"
+      href="/favicon.ico?v=dpeen-logo"
+    />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=dpeen-logo" />
+    <link rel="manifest" href="/site.webmanifest?v=dpeen-logo" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">
+      Skip to content
+    </a>
+    <slot />
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>

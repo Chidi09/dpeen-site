@@ -1,0 +1,65 @@
+---
+import { trustees } from '../data/trustees';
+---
+
+<section id="leadership" class="leadership-editorial">
+  <div class="container">
+    <div class="leadership-heading">
+      <p class="section-label">04 / Our guidance</p>
+      <h2 class="display-heading">Leadership &amp; trustees</h2>
+    </div>
+    <div class="trustee-grid">
+      {trustees.map((t) => (
+        <article class="trustee-card h-full">
+          {t.image ? (
+            <img
+              src={t.image}
+              alt={t.name}
+              width="160"
+              height="160"
+              loading="lazy"
+              class="trustee-photo object-cover"
+              class:list={[
+                t.imagePosition === 'center 40%'
+                  ? 'object-[center_40%]'
+                  : t.imagePosition === 'center 35%'
+                    ? 'object-[center_35%]'
+                    : 'object-center',
+              ]}
+            />
+          ) : (
+            <div
+              class="trustee-photo trustee-placeholder flex items-center justify-center"
+              aria-hidden="true"
+            >
+              {t.name
+                .split(' ')
+                .map((n) => n[0])
+                .slice(0, 2)
+                .join('')}
+            </div>
+          )}
+          <h3 class="trustee-name">{t.name}</h3>
+          {t.role && <p class="trustee-role">{t.role}</p>}
+          {t.bio && (
+            <div class="trustee-bio-content">
+              <p class="trustee-bio-preview text-sm leading-relaxed text-slate-600">
+                {t.bioPreview}
+              </p>
+              <details class="trustee-biography">
+                <summary class="cursor-pointer text-sm font-medium">
+                  <span class="read-more">Read more</span>
+                  <span class="read-less">Read less</span>
+                  <span class="sr-only"> about {t.name}</span>
+                </summary>
+                <p class="mt-3 text-sm leading-relaxed text-slate-600">
+                  {t.bio}
+                </p>
+              </details>
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -12,4 +12,5 @@ Please add your custom font files to this directory:
 - **Inter** (system default): Body text, paragraphs, UI elements
 
 ## Note
+
 If your font files have different extensions (.ttf instead of .otf), update the paths in `src/index.css` accordingly.

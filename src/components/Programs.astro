@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import education from '../../public/images/illustrations/education.png';
+import recovery from '../../public/images/illustrations/recovery.png';
+import recreation from '../../public/images/illustrations/recreation.png';
+import empowerment from '../../public/images/illustrations/empowerment.png';
+
+const stages = [
+  {
+    title: 'Education',
+    image: education,
+    symbol: '01',
+    desc: 'Educating children and young people on the dangers of drugs.',
+    cue: 'Knowledge is the first step.',
+  },
+  {
+    title: 'Rehabilitation',
+    image: recovery,
+    symbol: '02',
+    desc: 'Identifying addiction and connecting people with professionals.',
+    cue: 'Support for a new beginning.',
+  },
+  {
+    title: 'Recreation',
+    image: recreation,
+    symbol: '03',
+    desc: 'Sporting facilities to create positive distractions.',
+    cue: 'Space to connect and grow.',
+  },
+  {
+    title: 'Empowerment',
+    image: empowerment,
+    symbol: '04',
+    desc: 'Skills training and scholarships for the future.',
+    cue: 'Opportunity beyond recovery.',
+  },
+];
+---
+
+<section id="program" class="program-editorial">
+  <div class="container">
+    <div class="program-heading">
+      <div>
+        <p class="section-label">02 / Our approach</p>
+        <h2 class="display-heading">
+          The 4-stage
+          <br />
+          <em>program.</em>
+        </h2>
+      </div>
+      <p>A systematic approach to restoration.</p>
+    </div>
+    <div class="program-journey">
+      {stages.map((stage) => (
+        <article class="journey-stage">
+          <div class="journey-top">
+            <span>{stage.symbol}</span>
+          </div>
+          <div class="journey-art" aria-hidden="true">
+            <Image
+              src={stage.image}
+              alt=""
+              width={480}
+              height={480}
+              format="webp"
+              quality={85}
+              loading="lazy"
+              sizes="(min-width: 1024px) 240px, (min-width: 640px) 320px, 260px"
+              widths={[260, 480]}
+            />
+          </div>
+          <h3>{stage.title}</h3>
+          <p>{stage.desc}</p>
+          <span class="journey-cue">{stage.cue}</span>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
