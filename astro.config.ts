@@ -3,6 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { generateSW } from 'workbox-build';
 import { fileURLToPath } from 'node:url';
+import { LEGAL_UPDATED } from './src/data/site';
 export default defineConfig({
   site: process.env.SITE_URL || 'https://www.dpeenetwork.com',
   output: 'static',
@@ -24,7 +25,17 @@ export default defineConfig({
   },
   vite: { plugins: [tailwindcss()] },
   integrations: [
-    sitemap(),
+    sitemap({
+      // Honest dates: the home page changes with each release, and each
+      // legal page changes when its "last updated" date does.
+      serialize: (item) => ({
+        ...item,
+        lastmod:
+          new URL(item.url).pathname === '/'
+            ? new Date().toISOString()
+            : `${LEGAL_UPDATED}T00:00:00.000Z`,
+      }),
+    }),
     {
       name: 'dpeen-offline',
       hooks: {

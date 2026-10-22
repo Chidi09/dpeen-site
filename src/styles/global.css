@@ -2284,3 +2284,7 @@ footer button:focus-visible {
     animation: status-in 0.3s var(--ease-out) both;
   }
 }
+
+.not-found-actions {
+  margin-top: 32px;
+}

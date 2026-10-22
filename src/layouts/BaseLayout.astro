@@ -2,19 +2,42 @@
 import { SEO } from 'astro-seo';
 import CookieNotice from '../components/CookieNotice.astro';
 import '../styles/global.css';
+import { SITE, LEGAL_UPDATED } from '../data/site';
 import {
   createStructuredData,
   serializeStructuredData,
+  type Crumb,
 } from '../lib/structured-data';
+
+interface Props {
+  title?: string;
+  description?: string;
+  kind?: 'home' | 'legal';
+  breadcrumbs?: Crumb[];
+  noindex?: boolean;
+}
 const {
-  title = 'DPEEN | Say NO to Drugs',
-  description = 'Transforming lives and communities through drug prevention, rehabilitation, recovery and empowerment.',
+  title = SITE.title,
+  description = SITE.description,
+  kind = 'home',
+  breadcrumbs = [],
+  noindex = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const structuredData = serializeStructuredData(
-  createStructuredData(Astro.site!, canonical),
-);
-const image = new URL('/open-graph/home.png', Astro.site).href;
+const image = new URL(SITE.ogImage.path, Astro.site).href;
+const modified =
+  kind === 'legal' ? LEGAL_UPDATED : new Date().toISOString().slice(0, 10);
+const structuredData = noindex
+  ? undefined
+  : serializeStructuredData(
+      createStructuredData(Astro.site!, canonical, {
+        kind,
+        title,
+        description,
+        modified,
+        breadcrumbs,
+      }),
+    );
 ---
 
 <!doctype html>
@@ -27,14 +50,53 @@ const image = new URL('/open-graph/home.png', Astro.site).href;
       title={title}
       description={description}
       canonical={canonical}
+      noindex={noindex}
       openGraph={{
         basic: { title, type: 'website', image, url: canonical },
-        optional: { description, siteName: 'DPEEN' },
-        image: { width: 1200, height: 630, alt: 'DPEEN — Say NO to Drugs' },
+        optional: {
+          description,
+          siteName: SITE.name,
+          locale: SITE.locale,
+        },
+        image: {
+          url: image,
+          secureUrl: image,
+          type: 'image/png',
+          width: SITE.ogImage.width,
+          height: SITE.ogImage.height,
+          alt: SITE.ogImage.alt,
+        },
       }}
-      twitter={{ card: 'summary_large_image', title, description, image }}
+      twitter={{
+        card: 'summary_large_image',
+        title,
+        description,
+        image,
+        imageAlt: SITE.ogImage.alt,
+      }}
+      extend={{
+        link: [
+          { rel: 'alternate', hreflang: SITE.language, href: canonical.href },
+          { rel: 'alternate', hreflang: 'x-default', href: canonical.href },
+        ],
+        meta: [
+          { name: 'author', content: SITE.name },
+          { name: 'application-name', content: SITE.name },
+          ...(noindex
+            ? []
+            : [
+                {
+                  name: 'googlebot',
+                  content:
+                    'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+                },
+              ]),
+        ],
+      }}
     />
-    <script type="application/ld+json" set:html={structuredData} />
+    {structuredData && (
+      <script type="application/ld+json" set:html={structuredData} />
+    )}
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=dpeen-logo" />
     <link
@@ -45,6 +107,7 @@ const image = new URL('/open-graph/home.png', Astro.site).href;
     />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=dpeen-logo" />
     <link rel="manifest" href="/site.webmanifest?v=dpeen-logo" />
+    <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

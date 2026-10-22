@@ -195,7 +195,7 @@ test('structured data and crawl files consistently identify the public site', as
   expect(data['@graph']).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
-        '@type': 'Organization',
+        '@type': 'NGO',
         alternateName: 'DPEEN',
         url: 'https://www.dpeenetwork.com/',
       }),

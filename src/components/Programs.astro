@@ -1,40 +1,18 @@
 ---
+import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import education from '../../public/images/illustrations/education.png';
 import recovery from '../../public/images/illustrations/recovery.png';
 import recreation from '../../public/images/illustrations/recreation.png';
 import empowerment from '../../public/images/illustrations/empowerment.png';
+import { stages } from '../data/programs';
 
-const stages = [
-  {
-    title: 'Education',
-    image: education,
-    symbol: '01',
-    desc: 'Educating children and young people on the dangers of drugs.',
-    cue: 'Knowledge is the first step.',
-  },
-  {
-    title: 'Rehabilitation',
-    image: recovery,
-    symbol: '02',
-    desc: 'Identifying addiction and connecting people with professionals.',
-    cue: 'Support for a new beginning.',
-  },
-  {
-    title: 'Recreation',
-    image: recreation,
-    symbol: '03',
-    desc: 'Sporting facilities to create positive distractions.',
-    cue: 'Space to connect and grow.',
-  },
-  {
-    title: 'Empowerment',
-    image: empowerment,
-    symbol: '04',
-    desc: 'Skills training and scholarships for the future.',
-    cue: 'Opportunity beyond recovery.',
-  },
-];
+const art: Record<string, ImageMetadata> = {
+  Education: education,
+  Rehabilitation: recovery,
+  Recreation: recreation,
+  Empowerment: empowerment,
+};
 ---
 
 <section id="program" class="program-editorial">
@@ -58,7 +36,7 @@ const stages = [
           </div>
           <div class="journey-art" aria-hidden="true">
             <Image
-              src={stage.image}
+              src={art[stage.title]!}
               alt=""
               width={480}
               height={480}
